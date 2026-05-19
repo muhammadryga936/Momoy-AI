@@ -15,7 +15,7 @@ export default function App() {
     setIsAnalyzing(true);
     setResult(null);
     try {
-      const resp = await fetch("/api/analyze", {
+      const resp = await fetch("https://momoy-backend-632647169363.asia-southeast2.run.app/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: inputText, imageUrl: selectedImage })

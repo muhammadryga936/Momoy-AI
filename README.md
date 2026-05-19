@@ -22,7 +22,7 @@ Aplikasi ini menerima input berupa teks (link, pesan mencurigakan) maupun gambar
 
 ---
 
-## 📦 Panduan Instalasi & Menjalankan Aplikasi
+## Panduan Instalasi & Menjalankan Aplikasi
 
 Ikuti langkah-langkah di bawah ini untuk menjalankan MOMOY AI di komputer lokal Anda:
 
