@@ -16,7 +16,13 @@ app.use((req, res, next) => {
   next();
 });
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY; 
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+if (!GEMINI_API_KEY) {
+  console.log("\n⚠️  WARNING: GEMINI_API_KEY belum terdeteksi di Environment Variables sistem Anda!");
+  console.log("👉 Pastikan Anda menyalakan server menggunakan command pembawa key.");
+}
+
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 const SYSTEM_INSTRUCTION = `Anda adalah MOMOY, pakar siber OSINT. 
@@ -94,6 +100,6 @@ app.post("/api/analyze", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`\n==============================================`);
-  console.log(`🛡️  MOMOY HARDCODED API SERVER ACTIVE ON PORT ${PORT}`);
+  console.log(`🛡️  MOMOY CLOUD-READY API SERVER ACTIVE ON PORT ${PORT}`);
   console.log(`==============================================\n`);
 });
