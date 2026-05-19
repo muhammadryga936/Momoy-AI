@@ -16,8 +16,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const HARDCODED_API_KEY = "AIzaSyAt7N4vg0kVK_whSbBr1LhkfhlN-xkZuLo";
-const ai = new GoogleGenAI({ apiKey: HARDCODED_API_KEY });
+const API_KEY = process.env.GEMINI_API_KEY;
+const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const SYSTEM_INSTRUCTION = `Anda adalah MOMOY, pakar siber OSINT. 
 Analisis input untuk deteksi phishing, scam, malware, dan rekayasa sosial. 
@@ -75,7 +75,14 @@ app.post("/api/analyze", async (req, res) => {
     });
 
     const responseText = response.text;
-    return res.status(200).json(JSON.parse(responseText));
+    
+    try {
+      const cleanJson = JSON.parse(responseText);
+      return res.status(200).json(cleanJson);
+    } catch (parseErr) {
+      console.error("🔥 Gagal parse JSON AI:", responseText);
+      throw new Error("Format respon AI tidak valid JSON.");
+    }
     
   } catch (err) {
     console.error("🔥 ERROR BACKEND:", err.message);
@@ -85,7 +92,7 @@ app.post("/api/analyze", async (req, res) => {
       threat_type: "Analisis Macet (API Error)",
       summary: `MOMOY Core gagal memproses data dari server AI Google: ${err.message}`,
       details: ["Koneksi berhasil terhubung ke pusat AI, tetapi server Google menolak permintaan Anda."],
-      recommendations: ["Pastikan kuota API Key Gemini Anda tidak habis, atau coba pakai gambar screenshot yang berbeda."],
+      recommendations: ["Pastikan kuota API Key Gemini Anda tidak habis, file .env sudah benar, atau coba pakai gambar screenshot yang berbeda."],
       red_flags: ["API Request Rejected"]
     });
   }
@@ -94,6 +101,6 @@ app.post("/api/analyze", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`\n==============================================`);
-  console.log(`🛡️  MOMOY HARDCODED API SERVER ACTIVE ON PORT ${PORT}`);
+  console.log(`🛡️  MOMOY AI SECURITY API SERVER ACTIVE ON PORT ${PORT}`);
   console.log(`==============================================\n`);
 });
