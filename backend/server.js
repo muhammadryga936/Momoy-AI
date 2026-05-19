@@ -16,8 +16,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const HARDCODED_API_KEY = "AIzaSyBcmpQTfS2PkcaOLYBlvb9f51z5Yx0habw";
-const ai = new GoogleGenAI({ apiKey: HARDCODED_API_KEY });
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY; 
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 const SYSTEM_INSTRUCTION = `Anda adalah MOMOY, pakar siber OSINT. 
 Analisis input untuk deteksi phishing, scam, malware, dan rekayasa sosial. 
