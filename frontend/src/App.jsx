@@ -149,13 +149,13 @@ export default function App() {
               
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-xs font-mono text-indigo-400 tracking-wider uppercase mb-2">Rangkuman Insiden:</h4>
+                  <h4 className="text-xs font-mono text-indigo-400 tracking-wider uppercase mb-2">Hasil Analisis:</h4>
                   <p className="text-sm leading-relaxed text-slate-300 bg-white/[0.01] border border-white/5 p-4 rounded-xl font-mono">{result.summary}</p>
                 </div>
 
                 {result.details && result.details.length > 0 && (
                   <div>
-                    <h4 className="text-xs font-mono text-amber-400 tracking-wider uppercase mb-2">Indikator Kecurigaan:</h4>
+                    <h4 className="text-xs font-mono text-amber-400 tracking-wider uppercase mb-2">Tanda-tanda Kecurigaan:</h4>
                     <ul className="space-y-2">
                       {result.details.map((detail, idx) => (
                         <li key={idx} className="text-xs font-mono text-slate-400 flex items-start gap-2">
@@ -168,7 +168,7 @@ export default function App() {
 
                 {result.recommendations && result.recommendations.length > 0 && (
                   <div className="border-t border-white/5 pt-4">
-                    <h4 className="text-xs font-mono text-emerald-400 tracking-wider uppercase mb-2">Tindakan Pengamanan:</h4>
+                    <h4 className="text-xs font-mono text-emerald-400 tracking-wider uppercase mb-2">Solusi yang diberikan:</h4>
                     <ul className="space-y-2">
                       {result.recommendations.map((rec, idx) => (
                         <li key={idx} className="text-xs font-mono text-slate-300 flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/10 p-2.5 rounded-lg">

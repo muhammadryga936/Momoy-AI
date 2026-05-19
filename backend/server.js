@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const HARDCODED_API_KEY = "MASUKKAN_API_KEY_DI_SINI";
+const HARDCODED_API_KEY = "AIzaSyBcmpQTfS2PkcaOLYBlvb9f51z5Yx0habw";
 const ai = new GoogleGenAI({ apiKey: HARDCODED_API_KEY });
 
 const SYSTEM_INSTRUCTION = `Anda adalah MOMOY, pakar siber OSINT. 
