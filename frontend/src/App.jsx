@@ -17,13 +17,24 @@ export default function App() {
     try {
       const resp = await fetch("https://momoy-backend-632647169363.asia-southeast2.run.app/api/analyze", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json" 
+        },
         body: JSON.stringify({ text: inputText, imageUrl: selectedImage })
       });
+      
       const data = await resp.json();
       setResult(data);
     } catch (err) {
-      console.error(err);
+      console.error("ERROR FRONTEND:", err);
+      setResult({
+        risk_level: "HIGH",
+        threat_type: "Koneksi Gagal",
+        summary: "Frontend gagal terhubung ke server backend Momoy Cloud.",
+        details: ["Pastikan laptop Anda terhubung ke internet."],
+        recommendations: ["Coba refresh halaman dan ulangi beberapa saat lagi."],
+        red_flags: ["FETCH_FAILED"]
+      });
     } finally {
       setIsAnalyzing(false);
     }
@@ -40,12 +51,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen technical-grid pb-20 text-slate-200">
-      {/* HEADER DENGAN TAMPILAN AWAL SEPERTI SEMULA KALA */}
       <header className="border-b border-white/5 bg-black/20 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-indigo-400">
-              {/* Ikon Perisai SVG Bawaan */}
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               </svg>
@@ -124,7 +133,7 @@ export default function App() {
               disabled={isAnalyzing || (!inputText && !selectedImage)}
               className="mt-6 w-full py-4 bg-indigo-600 disabled:bg-indigo-800/40 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-mono font-bold text-sm tracking-widest text-white hover:bg-indigo-500 transition-all"
             >
-              {isAnalyzing ? "Scanning" : "MULAI PINDAI ANCAMAN"}
+              {isAnalyzing ? "Scanning..." : "MULAI PINDAI ANCAMAN"}
             </button>
           </div>
         </div>
@@ -172,7 +181,7 @@ export default function App() {
                     <ul className="space-y-2">
                       {result.recommendations.map((rec, idx) => (
                         <li key={idx} className="text-xs font-mono text-slate-300 flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/10 p-2.5 rounded-lg">
-                          <CheckCircle className="text-emerald-500 w-4 h-4 shrink-0 mt-0.5"/> {rec}
+                          <CheckCircle className="text-emerald-400 w-4 h-4 shrink-0 mt-0.5"/> {rec}
                         </li>
                       ))}
                     </ul>

@@ -38,7 +38,7 @@ Anda WAJIB memberikan output dalam format JSON murni tanpa pembuka/penutup markd
 }`;
 
 app.post("/api/analyze", async (req, res) => {
-  console.log("📥 Menerima request analisis baru...");
+  console.log("Menerima request analisis baru...");
   try {
     const { text, imageUrl } = req.body;
     const contents = [];
@@ -71,7 +71,7 @@ app.post("/api/analyze", async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: contents,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
