@@ -19,8 +19,8 @@ app.use((req, res, next) => {
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 if (!GEMINI_API_KEY) {
-  console.log("\n⚠️  WARNING: GEMINI_API_KEY belum terdeteksi di Environment Variables sistem Anda!");
-  console.log("👉 Pastikan Anda menyalakan server menggunakan command pembawa key.");
+  console.log("\nWARNING: GEMINI_API_KEY belum terdeteksi di Environment Variables sistem Anda!");
+  console.log("Pastikan Anda menyalakan server menggunakan command pembawa key.");
 }
 
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
@@ -71,7 +71,7 @@ app.post("/api/analyze", async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-1.5-flash",
       contents: contents,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
@@ -84,7 +84,7 @@ app.post("/api/analyze", async (req, res) => {
     return res.status(200).json(JSON.parse(responseText));
     
   } catch (err) {
-    console.error("🔥 ERROR BACKEND:", err.message);
+    console.error("ERROR BACKEND:", err.message);
     
     return res.status(200).json({
       risk_level: "HIGH",
@@ -100,6 +100,6 @@ app.post("/api/analyze", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`\n==============================================`);
-  console.log(`🛡️  MOMOY CLOUD-READY API SERVER ACTIVE ON PORT ${PORT}`);
+  console.log(` MOMOY CLOUD-READY API SERVER ACTIVE ON PORT ${PORT}`);
   console.log(`==============================================\n`);
 });
